@@ -59,7 +59,7 @@ lspconfig.pyright.setup({
   on_attach = on_attach,
 })
 -- brew install lua-language-server
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   on_attach = on_attach,
 })
 
