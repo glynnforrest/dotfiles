@@ -381,7 +381,7 @@ fix-svg () {
 }
 
 source-env () {
-    export $(cat $1 | xargs)
+    export $(grep -Ev '^#' .env)
 }
 
 nomad-restart-job () {
