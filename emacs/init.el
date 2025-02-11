@@ -26,6 +26,7 @@
 (require 'setup-keys)
 
 ;; Major modes
+(require 'setup-ai)
 (require 'setup-apache)
 (require 'setup-coffeescript)
 (require 'setup-css)
