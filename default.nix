@@ -6,6 +6,17 @@ let
     })
     { config.allowUnfree = true; };
 
+  repo_dir = "~/code/github.com/glynnforrest/dotfiles";
+
+  wrapBin = bin: pkgs.writeShellScriptBin "${bin}" ''
+PATH=${repo_dir}/result/bin:/usr/local/bin:/usr/bin:/bin
+${repo_dir}/bin/${bin} $@
+'';
+
+  bins = builtins.readDir ./bin;
+  files = builtins.filter (f: bins.${f} == "regular") (builtins.attrNames bins);
+  wrappers = map wrapBin files;
+
   python = (pkgs.python311.withPackages (ps: [
     ps.black
     ps.click
@@ -17,7 +28,8 @@ pkgs.buildEnv {
   name = "dotfiles";
   paths = with pkgs; [
     nodejs
+    nmap
     php
     python
-  ];
+  ] ++ wrappers;
 }

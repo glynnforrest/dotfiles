@@ -38,8 +38,6 @@ path_add ~/bin
 path_add /nix/var/nix/profiles/default/bin
 path_add ~/.nix-profile/bin
 
-path_add ~/.bin
-
 if command_exists direnv
 then
    eval "$(direnv hook zsh)"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # list all git tags and the commit message for all repositories in the
 # current directory.

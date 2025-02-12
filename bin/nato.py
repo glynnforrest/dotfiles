@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Print the first argument (or stdin) using the NATO phonetic alphabet
 
