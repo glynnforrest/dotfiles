@@ -18,6 +18,7 @@ is_mac () {
     test `uname` = "Darwin"
 }
 
+# TODO
 if test ! -f ~/.bin/z.sh
 then
     title "Installing z.sh"
