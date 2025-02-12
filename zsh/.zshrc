@@ -26,11 +26,8 @@ export NIX_PATH=~/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/chan
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 path_add /opt/homebrew/bin
-path_add /usr/local/opt/bison/bin
-path_add /usr/local/opt/openssl@1.1/bin
-path_add /usr/local/opt/php@7.4/sbin
-path_add /usr/local/opt/php@7.4/bin
 path_add $GOPATH/bin
+path_add ~/code/github.com/glynnforrest/dotfiles/result/bin
 
 if is_mac; then
     path_add /Library/TeX/texbin
