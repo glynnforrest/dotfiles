@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: go append
+# key: ap
+# --
+${1:var} = append($1, $2)$0

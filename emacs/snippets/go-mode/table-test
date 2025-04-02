@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: table test
+# key: tt
+# --
+for _, tc := range []struct {
+	name string
+	$0
+}{
+	{
+		name: "",
+	},
+} {
+	t.Run(tc.name, func(t *testing.T) {
+
+	})
+}
