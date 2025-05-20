@@ -2,6 +2,7 @@
 (use-package js2-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.mjs$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
   (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
