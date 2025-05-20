@@ -60,5 +60,6 @@ pkgs.buildEnv {
     tldr
     yq-go
     z
+    zig
   ] ++ wrappers;
 }

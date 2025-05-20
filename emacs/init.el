@@ -57,6 +57,7 @@
 (require 'setup-tmux)
 (require 'setup-web-mode)
 (require 'setup-yaml)
+(require 'setup-zig)
 
 ;; Personal config if available, like usernames and passwords
 (require 'setup-personal nil t)
