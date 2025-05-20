@@ -1,7 +1,10 @@
 # -*- mode: snippet -*-
 # name: monthly-file
-# key: monthly-file
+# key: m
 # --
+:PROPERTIES:
+:type: month
+:END:
 #+TITLE: `(gf/org-full-month-name-from-filename (gf/buffer-file-name-body))`
 
 * Tasks
