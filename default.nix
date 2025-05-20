@@ -48,10 +48,17 @@ in
 pkgs.buildEnv {
   name = "dotfiles";
   paths = with pkgs; [
-    nodejs
+    gron
+    htop
+    jq
     nmap
+    nodejs
     php
     python
+    ripgrep
+    svgcleaner
+    tldr
+    yq-go
     z
   ] ++ wrappers;
 }
