@@ -4,5 +4,4 @@
 /xmonad/xmonad.o
 /group_vars/*
 !/group_vars/_example.yml
-/bin/z.sh
 /result

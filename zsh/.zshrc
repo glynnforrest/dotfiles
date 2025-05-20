@@ -22,12 +22,13 @@ path_add () {
 # environment variables
 export GOPATH=~/code/go
 export NIX_PATH=~/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
+export DOTFILES=~/code/github.com/glynnforrest/dotfiles
 
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 path_add /opt/homebrew/bin
-path_add $GOPATH/bin
-path_add ~/code/github.com/glynnforrest/dotfiles/result/bin
+path_add ${GOPATH}/bin
+path_add ${DOTFILES}/result/bin
 
 if is_mac; then
     path_add /Library/TeX/texbin
@@ -303,7 +304,7 @@ alias ez="e ~/.zshrc"
 alias ff='find . -iname'
 alias l='ls -lah'
 alias ls='ls -h --group-directories-first --color=always'
-alias lsbin='ls -1 ~/.bin'
+alias lsbin='ls -1 $DOTFILES/bin'
 alias myip='curl -L https://canihazip.com/s/'
 alias mysq='mysql -u root -p'
 alias pjson='python -mjson.tool'
@@ -420,16 +421,12 @@ alias k='kubectl'
 if is_mac; then
     alias ls='ls -h -G'
     alias reset_dns='sudo killall -HUP mDNSResponder'
-    alias brew-dump='(cd ~/code/github.com/glynnforrest/dotfiles/ && brew bundle dump --force && echo "Updated Brewfile")'
+    alias brew-dump='(cd $DOTFILES && brew bundle dump --force && echo "Updated Brewfile")'
 else;
     alias open='xdg-open'
 fi;
 
-# z.sh
-if test -f ~/.bin/z.sh
-then
-    source ~/.bin/z.sh
-fi;
+source ${DOTFILES}/result/lib/z.sh
 
 # load private configuration if available
 if test -f ~/.zshrc.local

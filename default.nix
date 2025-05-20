@@ -23,6 +23,27 @@ ${repo_dir}/bin/${bin} $@
     ps.flake8
     ps.requests
   ]));
+
+  z = pkgs.stdenv.mkDerivation rec {
+    pname = "z";
+    version = "1.2";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/rupa/z/raw/refs/tags/v${version}/z.sh";
+      hash = "sha256-v7UXX0ifFMnNKmXuc3N4HdcbyYaGQYuQxVABFaqLL5k=";
+      postFetch = ''
+mv $downloadedFile $out
+'';
+    };
+
+    dontUnpack = true;
+
+    installPhase = ''
+    mkdir -p $out/lib
+    cp $src $out/lib/z.sh
+  '';
+  };
+
 in
 pkgs.buildEnv {
   name = "dotfiles";
@@ -31,5 +52,6 @@ pkgs.buildEnv {
     nmap
     php
     python
+    z
   ] ++ wrappers;
 }
