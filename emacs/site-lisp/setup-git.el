@@ -1,7 +1,10 @@
 (eval-when-compile (require 'use-package))
 
+(use-package transient)
+
 (use-package magit
   :commands magit-status
+  :after transient
   :config
   (setq
    magit-log-arguments '("-n256" "--decorate")

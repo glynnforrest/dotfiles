@@ -1,5 +1,5 @@
 (use-package dired
-  :straight nil
+  :ensure nil
   :defer t
   :config
   (setq dired-recursive-copies 'always

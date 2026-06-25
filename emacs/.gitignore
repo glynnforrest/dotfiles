@@ -3,7 +3,6 @@ ac-comphist.dat
 auto-save-list
 bookmarks
 *.elc
-elpa
 eshell
 image-dired*
 site-lisp/setup-personal.el
@@ -19,10 +18,9 @@ projectile*
 /skewer-cache/
 /history
 transient/
-/straight/*
-!/straight/versions
 /lsp-cache/
 /.lsp-session-v1
 /.cache/
 /eln-cache/
 /tree-sitter/
+/elpaca/

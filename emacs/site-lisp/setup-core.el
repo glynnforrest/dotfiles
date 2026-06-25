@@ -3,7 +3,8 @@
 (require 'lib-core)
 (require 'lib-vendor)
 
-(use-package general)
+(use-package general :ensure (:wait t))
+
 (defvar gf/leader-key "SPC"
   "Leader key prefix to use for key bindings.")
 
@@ -61,7 +62,7 @@ or if using plists
   :hook (css-mode emacs-lisp-mode haskell-mode))
 
 (use-package spaceline-config
-  :straight spaceline
+  :ensure spaceline
   :config
 
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
@@ -74,14 +75,13 @@ or if using plists
   (spaceline-spacemacs-theme))
 
 (use-package server
+  :ensure nil
   :config
   (setq server-socket-dir "/tmp/emacs")
   (unless (server-running-p)
     (server-start)))
 
-(use-package hydra )
-
-(use-package tramp)
+(use-package hydra)
 
 ;; enable/disable built-in modes
 (blink-cursor-mode -1)
@@ -96,6 +96,7 @@ or if using plists
 (xterm-mouse-mode -1)
 
 (use-package autorevert
+  :ensure nil
   :diminish ""
   :config
   (global-auto-revert-mode t))
@@ -144,6 +145,7 @@ or if using plists
   :diminish "")
 
 (use-package evil
+  :ensure (:wait t)
   :init
   (setq-default
    evil-want-keybinding nil
@@ -200,6 +202,7 @@ or if using plists
 
 ;; Save point position between sessions
 (use-package saveplace
+  :ensure nil
   :config
   (setq-default save-place t))
 
@@ -253,8 +256,6 @@ or if using plists
   (require 'lib-projects))
 
 (use-package vertico
-  :straight (vertico :includes vertico-directory
-                     :files (:defaults "extensions/vertico-directory.el"))
   :init
   (vertico-mode)
 
@@ -271,6 +272,8 @@ or if using plists
   (setq vertico-cycle t))
 
 (use-package vertico-directory
+  :ensure nil
+  :after vertico
   :config
   (general-define-key :keymaps 'vertico-map
                       "C-l" 'vertico-directory-enter
@@ -286,6 +289,7 @@ or if using plists
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package emacs
+  :ensure nil
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; Alternatively try `consult-completing-read-multiple'.
@@ -393,6 +397,8 @@ or if using plists
           sp-highlight-wrap-tag-overlay nil)))
 
 (use-package rotate-text
+  :ensure nil
+  :after hydra
   :commands (gf/clever-rotate-text gf/clever-rotate-text-backward)
   :init
   (defhydra hydra-rotate-text ()
@@ -486,6 +492,7 @@ line as well as the current word."
   (set-buffer-file-coding-system 'unix 't))
 
 (use-package try-code
+  :ensure nil
   :defer t
   :commands try-code)
 
@@ -531,6 +538,7 @@ line as well as the current word."
   (global-flycheck-mode))
 
 (use-package flyspell
+  :ensure nil
   :diminish "spell"
   :hook ((prog-mode . flyspell-prog-mode)
          ((org-mode with-editor-mode rst-mode). flyspell-mode))
@@ -538,7 +546,7 @@ line as well as the current word."
   (setq flyspell-issue-message-flag nil))
 
 (use-package flyspell-correct
-  :after (flyspell)
+  :after flyspell
   :config
   (general-define-key
    :states '(normal)

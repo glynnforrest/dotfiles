@@ -1,7 +1,7 @@
 (use-package cask-mode)
 
 (use-package lisp-mode
-  :straight nil
+  :ensure nil
   :config
   (general-define-key
    :keymaps 'lisp-mode-shared-map
@@ -16,6 +16,7 @@
   (add-hook 'ielm-mode-hook 'el-autoyas-enable))
 
 (use-package eldoc
+  :ensure nil
   :defer t
   :diminish ""
   :commands (eldoc-mode)

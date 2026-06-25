@@ -1,4 +1,10 @@
-(evil-set-initial-state 'help-mode 'normal)
+(eval-when-compile (require 'use-package))
+
+(use-package help-mode
+  :ensure nil
+  :after evil
+  :config
+  (evil-set-initial-state 'help-mode 'normal))
 
 (general-define-key
  :states '(normal)
