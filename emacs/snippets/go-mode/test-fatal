@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: test-fatal
+# key: tf
+# --
+t.Fatalf("$0")

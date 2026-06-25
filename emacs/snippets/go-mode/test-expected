@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: test-expected
+# key: te
+# --
+if ${1:tc.expected} != ${2:actual} {
+	t.Fatalf("expected %v, got %v", $1, $2)
+}

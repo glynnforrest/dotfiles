@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: mutex-lock-defer
+# key: ml
+# --
+${1:mu}.Lock()
+defer $1.Unlock()$0

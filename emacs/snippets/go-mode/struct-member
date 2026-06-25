@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: struct member
+# key: :
+# --
+${1:var}: $1,$0

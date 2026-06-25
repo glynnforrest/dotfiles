@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: test-want-err
+# key: twe
+# --
+if tc.wantErr {
+	if err == nil {
+		t.Fatal("expected an error, got nil")
+	}
+	return
+}
+if err != nil {
+	t.Fatalf("expected no error, got %v", err)
+}

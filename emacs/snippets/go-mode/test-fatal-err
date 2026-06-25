@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: test-fatal-err
+# key: tfe
+# --
+t.Fatalf("expected no error, got %v", err)
