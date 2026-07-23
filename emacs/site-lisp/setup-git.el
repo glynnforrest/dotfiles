@@ -35,10 +35,10 @@
    :non-normal-prefix gf/non-normal-leader-key
    "go" 'git-link))
 
-(use-package git-gutter
-  :diminish ""
+(use-package diff-hl
   :config
-  (global-git-gutter-mode t))
+  (global-diff-hl-mode)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
 (use-package git-timemachine
   :config

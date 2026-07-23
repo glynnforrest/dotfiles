@@ -63,7 +63,7 @@
  "gs" 'magit-status
  "gt" '(gf/git-timemachine :which-key "git-timemachine")
 
- "G" 'git-gutter:revert-hunk
+ "G" 'diff-hl-revert-hunk
 
  "i" '(:ignore t :which-key "insert")
  "ib" '((lambda () (interactive) (insert (gf/buffer-file-name-body))) :which-key "gf/buffer-file-name-body")
@@ -124,7 +124,7 @@
 
  "t" '(:ignore t :which-key "toggle")
  "tr" 'rainbow-mode
- "tg" '(global-git-gutter-mode :which-key "git-gutter")
+ "tg" '(global-diff-hl-mode :which-key "diff-hl")
  "tl" 'lsp-mode
  "tw" '(global-whitespace-mode :which-key "whitespace")
  "ts" '(flyspell-mode :which-key "flyspell")
