@@ -10,6 +10,7 @@
    magit-log-arguments '("-n32" "--decorate")
    magit-process-connection-type nil
    magit-refresh-verbose t
+   magit-git-executable "/usr/bin/git"
    magit-log-margin '(t "%H:%M %a %d %b %Y" magit-log-margin-width t 18))
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
@@ -39,6 +40,7 @@
 
 (use-package diff-hl
   :config
+  (setq vc-git-program "/usr/bin/git")
   (global-diff-hl-mode)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
