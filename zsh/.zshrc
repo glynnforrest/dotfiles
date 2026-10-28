@@ -399,21 +399,9 @@ checkcert () {
 alias t="terraform"
 alias tf_lock_providers="terraform providers lock -platform=linux_arm64 -platform=linux_amd64 -platform=darwin_amd64 -platform=windows_amd64"
 
-if command_exists fasd;
-then;
-    eval "$(fasd --init auto)"
-
-    alias a='fasd -a'        # any
-    alias s='fasd -si'       # show / search / select
-    alias d='fasd -d'        # directory
-    alias f='fasd -f'        # file
-    alias sd='fasd -sid'     # interactive directory selection
-    alias sf='fasd -sif'     # interactive file selection
-    alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-    alias zz='fasd_cd -d -i' # cd with interactive selection
-
-    ee () {e `fasd -sif $1`}
-fi;
+if command_exists zoxide; then
+    eval "$(zoxide init zsh)"
+fi
 
 alias k='kubectl'
 
@@ -425,8 +413,6 @@ if is_mac; then
 else;
     alias open='xdg-open'
 fi;
-
-source ${DOTFILES}/result/lib/z.sh
 
 # load private configuration if available
 if test -f ~/.zshrc.local
