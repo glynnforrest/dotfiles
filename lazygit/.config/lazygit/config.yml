@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/v0.42.0/schema/config.json
+os:
+  editPreset: nvim
+
+update:
+  # we install with nix
+  method: never
+
+promptToReturnFromSubprocess: false
