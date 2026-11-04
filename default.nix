@@ -24,6 +24,16 @@ ${repo_dir}/bin/${bin} $@
     ps.requests
   ]));
 
+  # macOS looks in ~/Library/Application Support/lazygit, not ~/.config.
+  # Point the binary at the stowed config when that file exists.
+  lazygit = pkgs.writeShellScriptBin "lazygit" ''
+    config="$HOME/.config/lazygit/config.yml"
+    if [ -f "$config" ]; then
+      export LG_CONFIG_FILE="$config"
+    fi
+    exec ${pkgs.lazygit}/bin/lazygit "$@"
+  '';
+
 in
 pkgs.buildEnv {
   name = "dotfiles";
@@ -31,6 +41,7 @@ pkgs.buildEnv {
     gron
     htop
     jq
+    lazygit
     nmap
     nodejs
     php

@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/v0.42.0/schema/config.json
+
+# Lazygit 0.42.0, from nixpkgs 24.05. Only overrides live here.
+
+os:
+  # $EDITOR is `emacsclient -nw --socket-name /tmp/emacs/server`.
+  # 0.42 reads the first word of that and has no emacsclient preset,
+  # so it would open vim. Spell the command out instead.
+  edit: "emacsclient -nw --socket-name /tmp/emacs/server -- {{filename}}"
+  editAtLine: "emacsclient -nw --socket-name /tmp/emacs/server +{{line}} -- {{filename}}"
+  editAtLineAndWait: "emacsclient -nw --socket-name /tmp/emacs/server +{{line}} -- {{filename}}"
+  openDirInEditor: "emacsclient -nw --socket-name /tmp/emacs/server -- {{dir}}"
+
+update:
+  # The binary comes from nix, so skip the in-app upgrade prompt.
+  method: never
+
+# emacsclient runs in the terminal; don't ask for another keypress after it exits.
+promptToReturnFromSubprocess: false

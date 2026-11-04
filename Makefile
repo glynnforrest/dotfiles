@@ -12,6 +12,7 @@ prepare:
 .PHONY: link
 link: prepare
 	stow -v -t ~ git
+	stow -v -t ~ lazygit
 	stow -v -t ~ pgcli
 	stow -v -t ~ tmux
 	stow -v -t ~ vim
