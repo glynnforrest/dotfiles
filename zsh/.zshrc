@@ -43,6 +43,7 @@ if command_exists direnv
 then
    eval "$(direnv hook zsh)"
 fi
+alias da="direnv allow"
 alias dr="direnv reload"
 
 if command_exists emacs; then
@@ -255,6 +256,8 @@ ec2_all_ips () {
     aws ec2 describe-instances --query 'Reservations[].Instances[].[InstanceId,Tags[?Key==`Name`]| [0].Value,PrivateIpAddress,InstanceType]' | jq -r '.[][2]'
 }
 
+alias -g ec2ip="awk '{gsub(/^ip-/, \"\"); gsub(\"-\", \".\"); print}'"
+
 troll () {
     export PS1='C:${PWD//\//\\}> '
     clear
@@ -354,6 +357,15 @@ alias grafana_tmp="docker run --name grafana-tmp --rm -ti --network agent-test -
 alias dnow="date +%Y-%m-%d"
 alias dtnow="date -u +%Y-%m-%d-%H:%M:%S"
 alias dtutcnow="date -u +%Y-%m-%d-%H:%M:%S"
+
+alias p1="awk '{print \$1}'"
+alias p2="awk '{print \$2}'"
+alias p3="awk '{print \$3}'"
+alias p4="awk '{print \$4}'"
+alias p5="awk '{print \$5}'"
+alias p6="awk '{print \$6}'"
+alias p7="awk '{print \$7}'"
+alias p8="awk '{print \$8}'"
 
 wa() {
     watch -x zsh -ci "$1"
