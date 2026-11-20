@@ -40,7 +40,22 @@
 
 (use-package diff-hl
   :config
-  (setq vc-git-program "/usr/bin/git")
+  (setq vc-git-program "/usr/bin/git"
+        ;; Thin bars work better in terminal/tmux than the default
+        ;; "+"/background blocks inherited from diff-added.
+        diff-hl-margin-symbols-alist
+        '((insert . "│") (delete . "│") (change . "│")
+          (unknown . "?") (ignored . "i")))
+  (require 'diff-hl-margin)
+  (dolist (face-spec '((diff-hl-margin-insert . "#50ca7b")
+                       (diff-hl-margin-delete . "#ff5555")
+                       (diff-hl-margin-change . "#ffb86c")))
+    (set-face-attribute (car face-spec) nil
+                        :foreground (cdr face-spec)
+                        :background 'unspecified
+                        :inherit nil))
+  (unless (display-graphic-p)
+    (diff-hl-margin-mode))
   (global-diff-hl-mode)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
