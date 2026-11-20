@@ -1,3 +1,25 @@
+(require 'project)
+
+(defun gf/project-root ()
+  "Return the root directory of the current project, or nil.
+The path includes a trailing directory separator."
+  (let ((proj (project-current)))
+    (when proj
+      ;; `project-root' can return an abbreviated name (`~/...').
+      (file-name-as-directory (expand-file-name (project-root proj))))))
+
+(defun gf/project-find-file-in-directory (directory)
+  "Visit a file in DIRECTORY.
+DIRECTORY does not have to be the root of a known project."
+  (interactive "DFind file in directory: ")
+  (let ((directory (file-name-as-directory (expand-file-name directory))))
+    (project-find-file-in nil (list directory) (cons 'transient directory))))
+
+(defun gf/project-save-buffers ()
+  "Save modified file-visiting buffers in the current project."
+  (interactive)
+  (project-save-some-buffers t))
+
 (defun gf/buffer-file-name-body ()
   (if (buffer-file-name)
       (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))))
@@ -12,9 +34,9 @@ EXTENSION. Only the last extension of the file is considered."
   (equal extension (gf/filename-extension (buffer-file-name))))
 
 (defun gf/candidates-from-command (command)
-  "Get a list of candidates from running a command in the projectile root."
+  "Get a list of candidates from running a command in the project root."
   (split-string (shell-command-to-string
-                 (concat "cd " (projectile-project-root) " && " command)) "\n" t))
+                 (concat "cd " (gf/project-root) " && " command)) "\n" t))
 
 (defun gf/open-init-file ()
   (interactive)
@@ -26,7 +48,7 @@ EXTENSION. Only the last extension of the file is considered."
 
 (defun gf/find-emacs-d-file ()
   (interactive)
-  (projectile-find-file-in-directory user-emacs-directory))
+  (gf/project-find-file-in-directory user-emacs-directory))
 
 (defun gf/open-zshrc ()
   (interactive)
@@ -38,8 +60,9 @@ EXTENSION. Only the last extension of the file is considered."
 
 (defun gf/open-dotenv-file ()
   (interactive)
-  (when (projectile-project-root)
-    (find-file (concat (projectile-project-root) "/.env.local"))))
+  (let ((root (gf/project-root)))
+    (when root
+      (find-file (expand-file-name ".env.local" root)))))
 
 (defun gf/save-buffers-kill-emacs-no-prompt ()
   "Save some buffers, then exit unconditionally"

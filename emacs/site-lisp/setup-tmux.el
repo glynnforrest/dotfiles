@@ -85,7 +85,7 @@ Optional properties:
 
 :key The string name of a key to bind the function to SPC c `KEY'
 
-:project-root If t, run the command inside the projectile project root of the current buffer.
+:project-root If t, run the command inside the project root of the current buffer.
 
 
 Examples:
@@ -112,7 +112,7 @@ Examples:
 (defun gf/tmux--command-modify (command args)
   "Modify a command according to the properties in ARGS."
   (when (plist-get args :project-root)
-    (setq command `(concat "(cd " (projectile-project-root) " && " ,command ")")))
+    (setq command `(concat "(cd " (gf/project-root) " && " ,command ")")))
   command)
 
 (general-define-key

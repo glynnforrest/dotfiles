@@ -37,7 +37,7 @@ suitable name automatically or matching a regex in gf/projects-file-override-ali
                                       (lambda(regex org-file)
                                         (string-match regex resolved-file))))))
     (if override (concat org-directory (s-chop-prefix "/" override))
-      (gf/projects--create-org-path (projectile-project-root)))))
+      (gf/projects--create-org-path (gf/project-root)))))
 
 (defun gf/projects-open-org-file ()
   "Open the org file for the current project."

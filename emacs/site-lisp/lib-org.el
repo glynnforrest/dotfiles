@@ -10,7 +10,7 @@
 (defun gf/org-select-other-project-file-header ()
   "Visit a location to store a new note in another project."
   (interactive)
-  (let ((project (file-truename (completing-read "Project: " (projectile-relevant-known-projects)))))
+  (let ((project (file-truename (project-prompt-project-dir "Project" nil t))))
     (message project)
     (find-file (gf/projects--resolve-org-path project))
     (gf/org-select-top-level-header)))
@@ -99,7 +99,7 @@
 
 (defun gf/org-find-file ()
   (interactive)
-  (projectile-find-file-in-directory org-directory))
+  (gf/project-find-file-in-directory org-directory))
 
 (defun gf/org-up-to-level (level)
   "Move up to the previous LEVEL heading."

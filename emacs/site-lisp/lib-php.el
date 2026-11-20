@@ -56,16 +56,16 @@
       (insert (concat "    use " classbasename ";")))))
 
 (defun gf/php-class-candidates ()
-  "Get a list of available PHP classes in the current projectile project."
+  "Get a list of available PHP classes in the current project."
   (interactive)
   (split-string (shell-command-to-string
-                 (concat "~/.emacs.d/bin/php_class_finder.php " (projectile-project-root))) "\n" t))
+                 (concat "~/.emacs.d/bin/php_class_finder.php " (gf/project-root))) "\n" t))
 
 (defun gf/php-refresh-class-candidates ()
-  "Refresh the list of available PHP classes in the current projectile project."
+  "Refresh the list of available PHP classes in the current project."
   (interactive)
-  (start-process-shell-command "php-class-candidates" nil (concat "~/.emacs.d/bin/php_class_finder.php " (projectile-project-root) " refresh"))
-  (message (format "Refreshing class candidates for %s" (projectile-project-root))))
+  (start-process-shell-command "php-class-candidates" nil (concat "~/.emacs.d/bin/php_class_finder.php " (gf/project-root) " refresh"))
+  (message (format "Refreshing class candidates for %s" (gf/project-root))))
 
 (defun gf/php-use-class-select ()
   "Add a class to the use declarations in the current file."
@@ -82,7 +82,7 @@
                      (gf/php-class-candidates))))
 
 (defun gf/php-insert-class ()
-  "Insert a class name in the current projectile project."
+  "Insert a class name in the current project."
   (interactive)
   (let ((class (completing-read
                 "Class: "
@@ -166,14 +166,14 @@
             "php bin/console debug:twig | grep -oE '\\* [-_a-zA-Z0-9]+' | sed 's/^. //g'"))))
 
 (defun gf/php-in-symfony-project-p ()
-  "Return t if the current projectile project is a symfony project."
+  "Return t if the current project is a symfony project."
   (or
-   (file-exists-p (concat (projectile-project-root) "bin/console"))
-   (file-exists-p (concat (projectile-project-root) "application/bin/console"))))
+   (file-exists-p (concat (gf/project-root) "bin/console"))
+   (file-exists-p (concat (gf/project-root) "application/bin/console"))))
 
 (defun gf/php-in-neptune-project-p ()
-  "Return t if the current projectile project is a neptune php project."
-  (file-exists-p (concat (projectile-project-root) "neptune")))
+  "Return t if the current project is a neptune php project."
+  (file-exists-p (concat (gf/project-root) "neptune")))
 
 (defun gf/php-show-date-format-help ()
   "Show a read-only buffer in another window with the PHP date format parameters."

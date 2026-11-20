@@ -14,7 +14,7 @@ session.*
 .smex-items
 tramp
 url
-projectile*
+/projects
 /skewer-cache/
 /history
 transient/

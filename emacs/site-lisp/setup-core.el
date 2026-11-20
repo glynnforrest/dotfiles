@@ -249,10 +249,10 @@ or if using plists
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 
-(use-package projectile
-  :diminish ""
+(use-package project
+  :ensure nil
   :config
-  (projectile-mode)
+  (setq project-switch-commands #'project-find-file)
   (require 'lib-projects))
 
 (use-package vertico
@@ -322,8 +322,7 @@ or if using plists
 
 (use-package consult
   :config
-  (setq consult-preview-key nil
-        consult-project-root-function #'projectile-project-root))
+  (setq consult-preview-key nil))
 
 (use-package wgrep
   :config

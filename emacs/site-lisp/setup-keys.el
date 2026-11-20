@@ -22,8 +22,8 @@
  "dj" 'dired-jump
  "dh" `(,(gf/key 'dired "~/Desktop") :which-key "~/Desktop")
  "dH" `(,(gf/key 'dired "~") :which-key "~")
- "dp" 'projectile-find-dir
- "dP" 'projectile-dired
+ "dp" 'project-find-dir
+ "dP" 'project-dired
 
  "e" '(:ignore t :which-key "emacs/eval/editor")
  "eb" 'eval-buffer
@@ -45,7 +45,7 @@
  "fi" '(gf/open-init-file :which-key "open init.el")
  "fI" '(gf/open-personal-file :which-key "open setup-personal.el")
  "fo" 'gf/org-find-file
- "fp" 'projectile-find-file
+ "fp" 'project-find-file
  "fr" 'consult-recent-file
  "fR" 'vnd/rename-current-buffer-file
  "fs" 'save-buffer
@@ -97,11 +97,11 @@
  "op" 'gf/projects-toggle-org-file
 
  "p" '(:ignore t :which-key "projects")
- "pk" 'projectile-kill-buffers
- "ps" 'projectile-switch-project
- "pS" 'projectile-save-project-buffers
- "pr" 'projectile-replace
- "pR" 'projectile-remove-known-project
+ "pk" 'project-kill-buffers
+ "ps" 'project-switch-project
+ "pS" 'gf/project-save-buffers
+ "pr" 'project-query-replace-regexp
+ "pR" 'project-forget-project
 
  "P" 'yank-from-kill-ring
 
