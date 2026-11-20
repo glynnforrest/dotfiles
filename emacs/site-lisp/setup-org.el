@@ -216,10 +216,13 @@ OFFSET is t for next month, or nil for previous month."
    :keymaps 'org-mode-map
    :prefix gf/major-mode-leader-key
    :non-normal-prefix gf/major-mode-non-normal-leader-key
+   "c" 'gf/org-change-line
+   "i" 'gf/org-insert-beginning-of-line
    "l" 'org-toggle-link-display
    "r" 'gf/org-refile-files-first
    "R" 'org-refile
    "t" 'gf/org-insert-blank-title
+   "6" 'gf/org-beginning-of-line
    "." 'gf/org-go-to-next-month
    "," 'gf/org-go-to-previous-month)
 
@@ -249,9 +252,6 @@ OFFSET is t for next month, or nil for previous month."
   (general-define-key
    :states '(normal visual)
    :keymaps 'org-mode-map
-   "^" 'gf/org-beginning-of-line
-   "I" 'gf/org-insert-beginning-of-line
-   "S" 'gf/org-change-line
    "t" 'org-todo
    "TAB" 'org-cycle))
 
