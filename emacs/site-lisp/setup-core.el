@@ -136,6 +136,9 @@ or if using plists
 
 (use-package restart-emacs)
 
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
+
 (use-package s)
 
 (use-package undo-tree
