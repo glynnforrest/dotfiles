@@ -59,6 +59,8 @@ or if using plists
 
 (use-package rainbow-mode
   :diminish ""
+  :config
+  (setq rainbow-html-colors nil)
   :hook (css-mode emacs-lisp-mode haskell-mode))
 
 (use-package spaceline-config
