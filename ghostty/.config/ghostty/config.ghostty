@@ -1,0 +1,6 @@
+# https://ghostty.org/docs/config
+
+# No ligatures
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
