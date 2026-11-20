@@ -8,9 +8,6 @@
   (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
   :config
 
-  (add-hook 'js2-mode-hook (lambda ()
-                             (flycheck-mode -1)))
-
   (setq-default js2-basic-offset 2)
 
   (defun gf/js2-mode-toggle-indent-offset ()

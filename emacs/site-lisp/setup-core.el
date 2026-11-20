@@ -69,9 +69,6 @@ or if using plists
         spaceline-evil-state-faces (append spaceline-evil-state-faces
                                            '((lisp . spaceline-evil-motion))))
 
-  (spaceline-toggle-flycheck-info-off)
-  (spaceline-toggle-flycheck-error-off)
-  (spaceline-toggle-flycheck-warning-off)
   (spaceline-spacemacs-theme))
 
 (use-package server
@@ -348,27 +345,43 @@ or if using plists
    "C-h" #'company-show-doc-buffer
    "TAB" nil))
 
-(use-package lsp-mode
+(use-package eglot
+  :ensure nil
   :init
-  (setq lsp-keymap-prefix "C-c l"
-        lsp-headerline-breadcrumb-enable nil
-        lsp-enable-file-watchers nil
-        lsp-enable-imenu nil
-        lsp-enable-folding nil
-        lsp-enable-indentation nil
-        lsp-enable-snippet nil
-        ;; lsp-imenu-index-function 'lsp-imenu-create-categorized-index
-        ;; lsp-imenu-index-symbol-kinds '(Function Method)
-        lsp-intelephense-multi-root t
-        lsp-symbol-highlighting-skip-current t)
-  :hook ((php-mode . lsp-deferred)
-         (go-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred)
+  (defun gf/eglot-toggle ()
+    "Start Eglot in the current buffer, or shut it down."
+    (interactive)
+    (if (eglot-managed-p)
+        (eglot-shutdown (eglot-current-server))
+      (call-interactively #'eglot)))
+  :hook ((go-mode . eglot-ensure)
+         (go-ts-mode . eglot-ensure)
+         (php-mode . eglot-ensure))
   :config
-    (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]vendor\\'")
-    (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]var/cache\\'")
-  )
+  ;; Don't block while the language server starts, and don't keep a
+  ;; JSON event log or a server alive after its last buffer is gone.
+  (setq eglot-sync-connect nil
+        eglot-autoshutdown t
+        eglot-events-buffer-config '(:size 0))
+
+  (add-to-list 'eglot-server-programs
+               '((go-mode go-ts-mode) . ("gopls")))
+  (add-to-list 'eglot-server-programs
+               '((php-mode php-ts-mode) . ("intelephense" "--stdio")))
+
+  ;; usePlaceholders is the gopls equivalent of snippet completion.
+  (setq-default eglot-workspace-configuration
+                '(:gopls (:usePlaceholders :json-false
+                          :staticcheck t)))
+
+
+  ;; Inlay hints and semantic tokens are turned on for every managed
+  ;; buffer. Keep font-lock and a quiet buffer instead.
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (when (eglot-managed-p)
+                (eglot-inlay-hints-mode -1)
+                (eglot-semantic-tokens-mode -1)))))
 
 (setq gc-cons-threshold 100000000)
 
@@ -497,44 +510,27 @@ line as well as the current word."
 
 (use-package ace-link)
 
-(use-package flycheck
+(use-package flymake
+  :ensure nil
   :diminish ""
   :config
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc
-                                             php-phpmd
-                                             php-phpcs
-                                             scss)
-
-                ;; so flycheck can check (require) calls properly.
-                flycheck-emacs-lisp-load-path 'inherit)
-
-  (setq flycheck-check-syntax-automatically '(save mode-enabled)
-        flycheck-standard-error-navigation nil
-        flycheck-highlighting-mode 'lines)
-
-  (set-face-attribute 'flycheck-error nil
+  (set-face-attribute 'flymake-error nil
                       :foreground "#ffffff"
                       :background "#671232"
                       :underline nil)
 
-  (set-face-attribute 'flycheck-warning nil
+  (set-face-attribute 'flymake-warning nil
                       :foreground "#ceb4e2"
                       :background nil
                       :underline nil)
 
-  (flycheck-define-checker proselint
-    "A linter for prose."
-    :command ("proselint" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
-    :modes (text-mode markdown-mode rst-mode))
-  (add-to-list 'flycheck-checkers 'proselint)
-
-  (global-flycheck-mode))
+  ;; Byte-compile Emacs Lisp, but skip checkdoc. Inherit load-path so
+  ;; (require) forms resolve the same way a normal load does.
+  (defun gf/emacs-lisp-flymake-setup ()
+    (remove-hook 'flymake-diagnostic-functions #'elisp-flymake-checkdoc t)
+    (setq-local elisp-flymake-byte-compile-load-path load-path))
+  (add-hook 'emacs-lisp-mode-hook #'gf/emacs-lisp-flymake-setup)
+  (add-hook 'lisp-interaction-mode-hook #'gf/emacs-lisp-flymake-setup))
 
 (use-package flyspell
   :ensure nil

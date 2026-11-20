@@ -79,7 +79,15 @@
 
  "j" 'vnd/arrayify
 
- "l" 'evil-lisp-state
+ "l" '(:ignore t :which-key "eglot")
+ "la" 'eglot-code-actions
+ "ld" 'flymake-show-buffer-diagnostics
+ "lf" 'eglot-format-buffer
+ "lq" 'eglot-shutdown
+ "lr" 'eglot-rename
+ "lR" 'eglot-reconnect
+
+ "L" 'evil-lisp-state
 
  "m" '(:ignore t :which-key "major-mode")
 
@@ -125,7 +133,7 @@
  "t" '(:ignore t :which-key "toggle")
  "tr" 'rainbow-mode
  "tg" '(global-diff-hl-mode :which-key "diff-hl")
- "tl" 'lsp-mode
+ "tl" '(gf/eglot-toggle :which-key "eglot")
  "tw" '(global-whitespace-mode :which-key "whitespace")
  "ts" '(flyspell-mode :which-key "flyspell")
  "tp" '(smartparens-mode :which-key "smartparens")
@@ -151,7 +159,7 @@
  "=" 'gf/indent-buffer
  "-" 'gf/untabify-buffer
  "+" 'gf/indent-cleanup-buffer
- "!" 'flycheck-next-error
+ "!" 'flymake-goto-next-error
  "*" '(hydra-rotate-text/body :which-key "rotate text")
  "$" 'gf/refresh-major-mode
  "\\" 'align-regexp)
